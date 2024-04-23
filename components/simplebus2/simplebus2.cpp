@@ -24,7 +24,7 @@ namespace esphome
 
     void Simplebus2Component::setup()
     {
-      ESP_LOGCONFIG(TAG, "Setting up Simplebus2");
+      ESP_LOGCONFIG(TAG, "Setting up Simplebus2 (Developer)");
 
       this->rx_pin->setup();
       this->tx_pin->setup();
@@ -141,7 +141,7 @@ namespace esphome
 
       const uint32_t now = micros();
       uint32_t pause_time = now - this->pause_time;
-
+      ESP_LOGD(TAG,"Triggered: ", pause_time," message_started: ", this->message_started);
       if (pause_time > 18000 && this->message_started)
       {
         ESP_LOGD(TAG, "Resetting preamble - %i", pause_time);
@@ -166,6 +166,7 @@ namespace esphome
           this->last_bus_bit_time = micros();
           this->activate_interrupt(false);
           this->message_position++;
+          ESP_LOGD(TAG,"this:", this);
           break;
         }
         case 5000 ... 7200:
@@ -175,6 +176,7 @@ namespace esphome
           this->last_bus_bit_time = micros();
           this->activate_interrupt(false);
           this->message_position++;
+          ESP_LOGD(TAG,"this:", this);
           break;
         }
         default:
