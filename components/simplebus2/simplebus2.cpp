@@ -141,7 +141,7 @@ namespace esphome
 
       const uint32_t now = micros();
       uint32_t pause_time = now - this->pause_time;
-      ESP_LOGD(TAG,"Triggered: ", pause_time," message_started: ", this->message_started);
+      ESP_LOGD(TAG,"message_started - %i", this->message_started);
       if (pause_time > 18000 && this->message_started)
       {
         ESP_LOGD(TAG, "Resetting preamble - %i", pause_time);
@@ -166,7 +166,7 @@ namespace esphome
           this->last_bus_bit_time = micros();
           this->activate_interrupt(false);
           this->message_position++;
-          ESP_LOGD(TAG,"this:", this);
+          ESP_LOGD(TAG,"this: %i", this);
           break;
         }
         case 5000 ... 7200:
@@ -176,7 +176,7 @@ namespace esphome
           this->last_bus_bit_time = micros();
           this->activate_interrupt(false);
           this->message_position++;
-          ESP_LOGD(TAG,"this:", this);
+          ESP_LOGD(TAG,this, pause_time);
           break;
         }
         default:
